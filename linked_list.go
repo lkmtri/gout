@@ -1,6 +1,8 @@
 package gout
 
-import "strconv"
+import (
+	"fmt"
+)
 
 // ListNode struct
 type ListNode struct {
@@ -24,7 +26,7 @@ func (ll *LinkedList) String() string {
 	str := ""
 
 	for node != nil {
-		str = str + strconv.Itoa(node.Val) + "->"
+		str += fmt.Sprintf("%s -> %d", str, node.Val)
 		node = node.Next
 	}
 
@@ -39,7 +41,7 @@ func (ll *ListNode) String() string {
 	node := ll
 
 	for node != nil {
-		str = str + strconv.Itoa(node.Val) + "->"
+		str += fmt.Sprintf("%s -> %d", str, node.Val)
 		node = node.Next
 	}
 
@@ -66,6 +68,26 @@ func GetLinkedListFromArray(array []int) *LinkedList {
 	}
 
 	ll.head = root
+
+	return ll
+}
+
+// NewLinkedListFromArray method
+func NewLinkedListFromArray(array []int) *LinkedList {
+	ll := &LinkedList{}
+
+	if len(array) == 0 {
+		return ll
+	}
+
+	root := &ListNode{Val: array[0], Next: nil}
+	cur := root
+
+	for i := 1; i < len(array); i++ {
+		node := &ListNode{Val: array[i], Next: nil}
+		cur.Next = node
+		cur = node
+	}
 
 	return ll
 }
